@@ -46,6 +46,8 @@ app.post('/order', function (req, res, next) {
 });
 
 
+
+
 /*
  * Order Aggregate 
  * Eventstore code
@@ -55,5 +57,6 @@ app.post('/order', function (req, res, next) {
  * Read model (mongoose?)
  *  GET - (should we build a simple read model)
  *  Subscription Service hookup for read model
- * 
+ * Command Handler
+ * Event handler
  */

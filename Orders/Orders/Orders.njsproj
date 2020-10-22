@@ -31,6 +31,9 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="src\aggregates\order.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="src\models\order.js">
       <SubType>Code</SubType>
     </Content>
@@ -54,6 +57,7 @@
   <ItemGroup>
     <Folder Include="src\models\" />
     <Folder Include="src\" />
+    <Folder Include="src\aggregates\" />
     <Folder Include="tests\" />
     <Folder Include="src\services\" />
   </ItemGroup>
