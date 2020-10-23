@@ -1,50 +1,58 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
+
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.use(bodyParser.json()); // support json encoded bodies
 
 module.exports = app;
 
-const port = 1338;
+const port = 1337;
 app.listen(port, () => console.log(`Hello world app listening on port ${port}!`));
 
-const mongoose = require('mongoose');
+//TODO: Move this into an Order Controller
+//TODO: Unit tests for REST functions
 
-/**
- * Product model schema.
- */
-const productSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    price: { type: Number, required: true },
-    description: { type: String }
-});
+app.post('/api/order', function (req, res, next) {
 
-module.exports = mongoose.model('product', productSchema);
+    //TODO: REST  - is the POST purely for creating then the order then subsequent PUT?
 
-// src/services/product.js
+    var order = req.body;
 
-const productModel = require('../models/product');
-
-/**
- * Stores a new product into the database.
- * @param {Object} product product object to create.
- * @throws {Error} If the product is not provided.
- */
-module.exports.create = async (product) => {
-    if (!product)
-        throw new Error('Missing product');
-
-    await productModel.create(product);
-}
-
-//http.createServer(function (req, res) {
-//    res.writeHead(200, { 'Content-Type': 'text/plain' });
-//    res.end('Hello World\n');
-//}).listen(port);
-
-app.post('/order', function (req, res, next) {
     res.statusCode = 201;
-    res.send('order id');
+    res.send({
+        id : 1
+    });
 });
 
+app.put('/api/order/:orderId', function (req, res, next) {
+
+    //We handle updates to original order in here.
+    //orderConfirmed
+    //deliveredConfirmed
+
+    var order = req.body;
+    var orderId = req.params.orderId;
+
+    res.statusCode = 200;
+    res.send({
+        id: 1
+    });
+});
+
+
+app.post('/api/order/:orderId/item', function (req, res, next) {
+
+    //TODO: REST  - is the POST purely for creating then the order then subsequent PUT?
+
+    var order = req.body;
+    var orderId = req.params.orderId;
+
+    res.statusCode = 201;
+    res.send({
+        id: 1
+    });
+});
 
 
 
