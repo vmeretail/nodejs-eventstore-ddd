@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 var uuid = require('uuid');
 const dbHandler = require('./db-handler');
 const orderService = require('../src/services/order');
-const orderAggregate = require('../src/aggregates/order');
+const aggregateHelper = require('../src/aggregates/aggregate');
+const orderAggregateHelper = require('../src/aggregates/orderAggregate');
+var chai = require('chai');
 
 
 /**
@@ -34,19 +36,17 @@ describe('order readmodel', () => {
 describe('order aggregate', () => {
     it('can be created correctly', () =>
     {
-        var aggregate = orderAggregate.createAggregate('C4B1557E-C4EB-44CF-808D-3319D36E1327', 'Order');
-
+        var aggregateId = '59ea9cd4-fc89-4b1d-a91e-335ef8b6eda6';
+        var aggregate = aggregateHelper.createAggregate(aggregateId, 'Order');
 
         var organisationId = "6e7eadde-b84f-4a64-b287-2b98d805a958";
         var storeId = "3218997a-a546-41ae-add6-88899e28bb73";
-        var eventId = uuid.v4();
-        var orderId = 1;
 
-        orderAggregate.createOrder(aggregate, organisationId, storeId, orderId, eventId);
+        orderAggregateHelper.createOrder(aggregate, organisationId, storeId);
 
-        //expect(async () => await orderService.create(orderComplete))
-        //    .not
-        //    .toThrow();
+        chai.expect(aggregate.organisationId).to.equal(organisationId);
+        chai.expect(aggregate.storeId).to.equal(storeId);
+        chai.expect(aggregate.orderId).to.equal(aggregateId);
     });
 });
 

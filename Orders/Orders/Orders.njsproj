@@ -31,7 +31,8 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="src\aggregates\order.js">
+    <Content Include="src\aggregates\aggregate.js" />
+    <Content Include="src\aggregates\orderAggregate.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="src\models\order.js">
