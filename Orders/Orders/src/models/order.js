@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
  * Order model schema.
  */
 const orderSchema = new mongoose.Schema({
-    id: { type: String, required: true },
+    id: { type: String, required: true }, //TODO: We need order id
     description: { type: String }
 });
 
