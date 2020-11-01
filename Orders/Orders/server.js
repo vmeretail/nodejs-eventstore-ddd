@@ -6,6 +6,12 @@ var uuid = require('uuid');
 
 
 const orderAggregateHelper = require('./src/aggregates/orderAggregate.js');
+const eventPublisher = require('./src/services/eventPublisher.js');
+
+const orderReadModel = require('./src/services/order.js');
+
+const mongoose = require('mongoose');
+
 
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(bodyParser.json()); // support json encoded bodies
@@ -24,7 +30,7 @@ esConnection.once('connected', function (tcpEndPoint) {
     console.log('Connected to eventstore at ' + tcpEndPoint.host + ":" + tcpEndPoint.port);
 });
 
-
+eventPublisher.start();
 
 //TODO: Move this into an Order Controller
 //TODO: Unit tests for REST functions
@@ -73,7 +79,6 @@ app.put('/api/order/:orderId', function (req, res, next) {
     });
 });
 
-
 app.post('/api/order/:orderId/item', function (req, res, next) {
 
     //TODO: REST  - is the POST purely for creating then the order then subsequent PUT?
@@ -85,6 +90,37 @@ app.post('/api/order/:orderId/item', function (req, res, next) {
     res.send({
         id: 1
     });
+});
+
+//TODO: first cut
+function factory(event)
+{
+    return {
+        orderId: event.id
+    };
+}
+
+app.get('/api/order/', async function (req, res, next) {
+
+    var orders = await orderReadModel.getAll();
+
+    var j = orders.map(factory);
+
+    res.statusCode = 200;
+    res.send(j);
+});
+
+app.get('/api/order/:orderId', async function (req, res, next) {
+
+    var orderId = req.params.orderId;
+
+    var newId = mongoose.mongo.ObjectId(orderId);
+
+    //TODO: I suspect we will keep an "orders controller, but the GET methods will branch off to the read model
+    var order = await orderReadModel.getById(newId);
+
+    res.statusCode = 200;
+    res.send(order);
 });
 
 

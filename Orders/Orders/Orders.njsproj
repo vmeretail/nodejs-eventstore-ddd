@@ -31,6 +31,9 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="src\controllers\events.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="src\aggregates\aggregate.js" />
     <Content Include="src\aggregates\orderAggregate.js">
       <SubType>Code</SubType>
@@ -41,6 +44,9 @@
     <Content Include="server.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Content Include="src\services\eventPublisher.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="src\services\order.js">
       <SubType>Code</SubType>
     </Content>
@@ -56,6 +62,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="src\controllers\" />
     <Folder Include="src\models\" />
     <Folder Include="src\" />
     <Folder Include="src\aggregates\" />
