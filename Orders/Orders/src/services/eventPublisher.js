@@ -57,6 +57,8 @@ connection.on('heartbeatInfo', heartbeatInfo =>
 connection.once("connected", tcpEndPoint => {
     console.log(`Connected to eventstore at ${tcpEndPoint.host}:${tcpEndPoint.port}`);
 
+    //TODO: Perhaps for this repo, we use subscribeFrom, so each fresh run starts from the category stream?
+
     //TODO: configuration
     connection.connectToPersistentSubscription('$ce-order',
         'Orders',
